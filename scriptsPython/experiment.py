@@ -75,6 +75,13 @@ def makeExperimentsDirectories( l ):
 
 		Repo.clone_from("https://github.com/danilomo/energy_measurement_scripts.git",folder)
 
+
+                # To copy a folder instead cloning from the repository
+
+                #os.mkdir(folder)
+                #os.system( "cp -a ../template/. " + folder )
+
+
 		filename = folder + "/configFiles/config.json"
 		configFile = json.dumps(e.getExperimentConfig(), sort_keys=True, indent = 4 ) + "\n"
 		os.remove(filename)
