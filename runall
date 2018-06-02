@@ -16,6 +16,6 @@ do
     cd ..
 
     current=$((current+1))
-    echo "Finished experiment $current of $total." >> progress.txt
+    echo "Finished experiment $current of $total." >> ../progress.txt
     
 done

@@ -1,23 +1,23 @@
 server  = "foobar"
 
+time = 60 * 1
+
 config = {
     "commands": {
-        "ubuntu01": "./start_benchmark %s %s %s %s" % (cpu01, io01, net01, server ),
-        "ubuntu02": "./start_benchmark %s %s %s %s" % (cpu02, io02, net02, server ),
+        "ubuntu01": "./start_benchmark.sh %s %s %s %s %s" % (time, cpu01, io01, net01, server ),
+        "ubuntu02": "./start_benchmark.sh %s %s %s %s %s" % (time, cpu02, io02, net02, server ),
     },    
-    "experimentDuration": 60 * 4,
+    "experimentDuration": time,
     "instances": {
         "ubuntu01": {
-            "provider": "libvirt1"#,
-            #"cpulimit": cpu01
+            "provider": "libvirt1"
         },
         "ubuntu02": {
-            "provider": "libvirt1"#,
-            #"cpulimit": cpu02
+            "provider": "libvirt1"
         }
     },
     "samplingInterval": 60,
-    "measuringInterval": 50
+    "measuringInterval": 55
 }
 
 provider_config = {
