@@ -3,3 +3,4 @@ rm -rf experiments
 mkdir experiments
 rm -rf *pyc
 rm -rf __pycache__
+rm -rf progress.txt

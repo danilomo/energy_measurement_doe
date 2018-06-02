@@ -2,6 +2,9 @@
 
 cd experiments
 
+total=$(ls -1 . | wc -l)
+current=0
+
 for dir in $(ls)
 do 
     cd $dir
@@ -11,4 +14,8 @@ do
     ./start_experiment.sh
     
     cd ..
+
+    current=$((current+1))
+    echo "Finished experiment $current of $total." >> progress.txt
+    
 done
