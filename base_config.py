@@ -28,7 +28,7 @@ provider_config = {
 	},
 	"instances" : {
 	    "ubuntu01" : {
-		"domain_name": "ubuntu02",
+		"domain_name": "ubuntu01",
 		"user_name": "teste",
 		"password": "12345",
 		"cpu_pin": {
