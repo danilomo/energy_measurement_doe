@@ -164,7 +164,8 @@ def onevm( args ):
     exps = get_experiments( levels )
     
     for i in exps:
-        print(i)
+        e.create_experiment_folder()
+        #print(i)
 
 @command
 def twovms( args, norm = False ):

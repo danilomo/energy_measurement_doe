@@ -1,6 +1,6 @@
-server  = "foobar"
+server  = "f33"
 
-time = 60 * 1
+time = 60 * 5
 
 config = {
     "commands": {
@@ -10,10 +10,12 @@ config = {
     "experimentDuration": time,
     "instances": {
         "ubuntu01": {
-            "provider": "libvirt1"
+            "provider": "libvirt1",
+            "cpushare": 20
         },
         "ubuntu02": {
-            "provider": "libvirt1"
+            "provider": "libvirt1",
+            "cpushare": 80
         }
     },
     "samplingInterval": 60,
@@ -32,7 +34,7 @@ provider_config = {
 		"user_name": "teste",
 		"password": "12345",
 		"cpu_pin": {
-		    "0": [1,0,0,0]
+		    "0": [1,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0]
 		}
 	    },
 	    "ubuntu02" : {
@@ -40,7 +42,7 @@ provider_config = {
 		"user_name": "teste",
 		"password": "12345",
 		"cpu_pin": {
-		    "0": [1,0,0,0]
+		    "0": [1,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0]
 		}
 	    }            
 	}
