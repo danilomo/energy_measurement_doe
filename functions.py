@@ -15,3 +15,15 @@ io = compose( int, zero_intercept( compose( f, g ) ) )
 #    return x
 
 network = create_scale( 940 )
+
+
+
+
+cpu1 = cpu
+cpu2 = cpu
+
+network1 = network
+network2 = network
+
+coefs2 = [67.38385766106583, -0.008580231318839017, 1.2098420222488348e-06, -3.400708931638599e-11, 3.223888367370422e-16]
+io2 = polynomial_function(coefs) 

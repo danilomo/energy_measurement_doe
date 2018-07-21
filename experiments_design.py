@@ -6,6 +6,7 @@ import json
 import clutil
 from clutil import command
 import functions
+import random
 
 
 def write_config( file_name, dic ):
@@ -85,13 +86,22 @@ class Experiment:
         if( config_file is None or config_file.strip() == "" ):
             return                               
         
-        cpu01 = functions.cpu(     int(self._config1[0]) )
-        io01  = functions.io(      int(self._config1[1]) )
-        net01 = functions.network( int(self._config1[2]) )
+        #cpu01 = functions.cpu(     int(self._config1[0]) )
+        #io01  = functions.io(      int(self._config1[1]) )
+        #net01 = functions.network( int(self._config1[2]) )
         
-        cpu02 = functions.cpu(     int(self._config2[0]) )
-        io02  = functions.io(      int(self._config2[1]) )
-        net02 = functions.network( int(self._config2[2]) )
+        #cpu02 = functions.cpu(     int(self._config2[0]) )
+        #io02  = functions.io(      int(self._config2[1]) )
+        #net02 = functions.network( int(self._config2[2]) )
+
+        cpu01 = int(self._config1[0])
+        io01  = int(self._config1[1])
+        net01 = int(self._config1[2])
+        
+        cpu02 = int(self._config2[0])
+        io02  = int(self._config2[1])
+        net02 = int(self._config2[2])
+
         
         ldict = locals()
         
@@ -164,13 +174,37 @@ def onevm( args ):
     exps = get_experiments( levels )
     
     for i in exps:
-        e.create_experiment_folder()
+        i.create_experiment_folder()
         #print(i)
 
 @command
 def twovms( args, norm = False ):
     levels = [ 0, 20, 40, 60, 80, 100 ]
     exps = get_experiments( levels, levels )
+    
+    for i in exps:
+        if norm:
+            print( str(i) + " - " + str(i.normalize()) )
+        else:
+            print(i)
+
+@command
+def twovms2( args, norm = False, shuffle = False, number = -1 ):
+    levels1 = [ 0, 20, 80, 100 ]
+    levels2 = [ 0, 40, 100 ]
+
+    exps = list(get_experiments( levels1, levels2 ))
+
+    if shuffle:
+        random.shuffle( exps )
+
+
+    if number > 0:
+        try:
+            number = int(number)
+            exps = exps[0:number]
+        except ValueError:
+            pass
     
     for i in exps:
         if norm:
@@ -186,6 +220,18 @@ def normtest( args ):
     print( (i,j) )
 
     print( _normalize( i, j ) )
+
+@command
+def fromfile( args ):
+    if( not (args and args[0]) ): 
+        return
+
+    filename = args[0]
+
+    with open(filename,'r') as f:
+        for l in (line.strip() for line in f):
+            exp = Experiment( l ).normalize()
+            exp.create_experiment_folder()
 
     
 clutil.execute()

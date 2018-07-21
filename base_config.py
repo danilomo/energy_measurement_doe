@@ -1,25 +1,29 @@
-server  = "f33"
+from functions import *
 
-time = 60 * 5
+server  = "f23"
+
+time = 60 * 1
 
 config = {
     "commands": {
-        "ubuntu01": "./start_benchmark.sh %s %s %s %s %s" % (time, cpu01, io01, net01, server ),
-        "ubuntu02": "./start_benchmark.sh %s %s %s %s %s" % (time, cpu02, io02, net02, server ),
+        "ubuntu01": "./start_benchmark.sh %s %s %s %s %s" % (time, cpu1(cpu01), io1(io01), net1(net01), server ),
+        "ubuntu02": "./start_benchmark.sh %s %s %s %s %s" % (time, cpu1(cpu02), io1(io02), net1(net02), server ),
     },    
     "experimentDuration": time,
     "instances": {
         "ubuntu01": {
             "provider": "libvirt1",
-            "cpushare": 20
+            "cpushare": cpu2(cpu01),
+            "iolimit" :  io2(io01)
         },
         "ubuntu02": {
             "provider": "libvirt1",
-            "cpushare": 80
+            "cpushare": cpu2(cpu02),
+            "iolimit" :  io2(io02)
         }
     },
-    "samplingInterval": 60,
-    "measuringInterval": 55
+    "samplingInterval": 20,
+    "measuringInterval": 15
 }
 
 provider_config = {
