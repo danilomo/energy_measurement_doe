@@ -30,7 +30,7 @@ def _normalize( n1, n2 ):
 
 class Experiment:
 
-    def __init__( self, arg1, arg2 = None ):
+    def __init__( self, arg1, arg2 = None, rep = None ):
         if( arg2 is not None ):
             self._config1 = arg1
             self._config2 = arg2
@@ -42,6 +42,7 @@ class Experiment:
 
         self._mapping = { 'cpu': 0, 'io': 1, 'net': 2 }
         self._configs = [ self._config1, self._config2 ]
+        self._rep = "" if rep is None else str(rep)
         
 
     def __eq__( self, o ):
@@ -75,7 +76,7 @@ class Experiment:
         c = [ n1, n2, n3 ]
         c = list(zip( * c ))
 
-        return Experiment( c[0], c[1] )
+        return Experiment( c[0], c[1], self._rep )
 
 
     def _generateConfigs( self ):
@@ -114,6 +115,10 @@ class Experiment:
         self._generateConfigs()
         
         folder = "exp_" + str( (self._config1, self._config2) ).replace("(","").replace(")","").replace(", ","_")
+
+        if( self._rep ):
+            folder = folder + "_" + self._rep
+
         os.system( "cp -r template/ " + folder )
         
         write_config( folder +  "/configFiles/config.json", self.config )
@@ -231,6 +236,22 @@ def fromfile( args ):
     with open(filename,'r') as f:
         for l in (line.strip() for line in f):
             exp = Experiment( l ).normalize()
+            exp.create_experiment_folder()
+
+@command
+def create( args ):
+    if( not( args and args[0] ) ):
+        return
+
+    
+    if( len(args) <= 1 ):
+        exp = Experiment( args[0] ).normalize()
+        exp.create_experiment_folder()
+    else:
+        reps = int( args[1] )
+        for i in range( 0, reps ):
+            rep = i + 1
+            exp = Experiment( args[0], rep = rep )
             exp.create_experiment_folder()
 
     

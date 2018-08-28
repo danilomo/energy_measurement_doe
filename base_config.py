@@ -1,13 +1,14 @@
 from functions import *
 
-server  = "f23"
+server1  = "f23"
+server2  = "f33"
 
 time = 60 * 1
 
 config = {
     "commands": {
-        "ubuntu01": "./start_benchmark.sh %s %s %s %s %s" % (time, cpu1(cpu01), io1(io01), net1(net01), server ),
-        "ubuntu02": "./start_benchmark.sh %s %s %s %s %s" % (time, cpu1(cpu02), io1(io02), net1(net02), server ),
+        "ubuntu01": "./start_benchmark.sh %s %s %s %s %s" % (time, cpu1(cpu01), io1(io01), net1(net01), server1 ),
+        "ubuntu02": "./start_benchmark.sh %s %s %s %s %s" % (time, cpu1(cpu02), io1(io02), net1(net02), server2 ),
     },    
     "experimentDuration": time,
     "instances": {

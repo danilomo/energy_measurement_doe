@@ -26,4 +26,8 @@ network1 = network
 network2 = network
 
 coefs2 = [67.38385766106583, -0.008580231318839017, 1.2098420222488348e-06, -3.400708931638599e-11, 3.223888367370422e-16]
+io1 = io
 io2 = polynomial_function(coefs) 
+
+net1 = network1
+net2 = network2
