@@ -30,7 +30,8 @@ def _normalize( n1, n2 ):
 
 class Experiment:
 
-    def __init__( self, arg1, arg2 = None, rep = None ):
+    def __init__( self, arg1, arg2 = None, rep = None, base_config = 'base_config.py' ):
+        self._base_config = base_config
         if( arg2 is not None ):
             self._config1 = arg1
             self._config2 = arg2
@@ -81,7 +82,7 @@ class Experiment:
 
     def _generateConfigs( self ):
 
-        with open('base_config.py', 'r') as myfile:
+        with open(self._base_config, 'r') as myfile:
             config_file = myfile.read()
 
         if( config_file is None or config_file.strip() == "" ):
@@ -160,8 +161,11 @@ def teste(args):
     e.normalize().create_experiment_folder()
 
 @command
-def single_parameter(args, vm = "vm1", param = "cpu", values = "[0]"):
-    l = eval(values)
+def single_parameter(args, vm = "vm1", param = "cpu", values = "[0]", base_config = "base_config.py"):
+    if "[" in values:
+        l = eval(values)
+    else:
+        l = [int(i) for i in values.split(" ") ]
     
     arguments = dict()
     arguments[vm] = dict()
@@ -170,6 +174,7 @@ def single_parameter(args, vm = "vm1", param = "cpu", values = "[0]"):
     exps = get_experiments( **arguments )
 
     for e in exps:
+        e._base_config = base_config
         print("Creating experiment: " + str(e))
         e.create_experiment_folder()
 
